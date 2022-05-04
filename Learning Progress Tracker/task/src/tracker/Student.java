@@ -1,13 +1,34 @@
 package tracker;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 public class Student {
+    int id;
     private String firstName;
     private String lastName;
     private String email;
 
-    private static boolean testString(String input) {
+    private int pointJava;
+    private int pointDSA;
+    private int pointDB;
+    private int pointSpring;
+
+    public Student(int id) {
+        this.id = id;
+        pointJava = 0;
+        pointDSA = 0;
+        pointDB = 0;
+        pointSpring = 0;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    private boolean testString(String input) {
         for (String sl: input.split(" ")) {
             if (sl.length() < 2) return false;
         }
@@ -16,7 +37,7 @@ public class Student {
         return !patternNot.matcher(input).matches() && pattern.matcher(input).matches();
     }
 
-    private static boolean testEmail(String input) {
+    private boolean testEmail(String input) {
         Pattern pattern = Pattern.compile("[\\w.]+@\\w+\\.\\w+");
         return pattern.matcher(input).matches();
     }
@@ -39,8 +60,16 @@ public class Student {
         return true;
     }
 
+    public void setPoints(int[] arrPoints) {
+        int i = 0;
+        pointJava += arrPoints[i++];
+        pointDSA += arrPoints[i++];
+        pointDB += arrPoints[i++];
+        pointSpring += arrPoints[i];
+    }
+
     @Override
     public String toString() {
-        return String.format("%s %s %s\n", firstName, lastName, email);
+        return String.format("%d points: Java=%d DSA=%d Databases=%d Spring=%d\n", id, pointJava, pointDSA, pointDB, pointSpring);
     }
 }
