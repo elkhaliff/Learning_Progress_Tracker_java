@@ -1,9 +1,6 @@
 package tracker;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 public class Student {
     int id;

@@ -1,7 +1,5 @@
 package tracker;
 
-import java.util.Map;
-
 public class Engine {
     final static String EXIT = "exit";
     final static String BACK = "back";
