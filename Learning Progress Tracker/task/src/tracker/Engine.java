@@ -7,8 +7,8 @@ public class Engine {
     final static String LIST = "list";
     final static String FIND = "find";
     final static String ADD_P = "add points";
-
     final static String STAT = "statistics";
+    final static String NOTIFY = "notify";
 
     private static ClassRoom classRoom;
 
@@ -31,9 +31,14 @@ public class Engine {
                 case FIND -> findStudents();
                 case ADD_P -> addPoints();
                 case STAT -> getStats();
+                case NOTIFY -> getNotify();
                 default -> System.out.println("Unknown command!");
             }
         }
+    }
+
+    private void getNotify() {
+        classRoom.sendMails();
     }
 
     private static void getStats() {

@@ -1,11 +1,10 @@
 package tracker;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 public class Course {
     String name;
-    int numberOfPoints;
+    private final int numberOfPoints;
 
     int activity, score;
     Set<Integer> students;
@@ -18,12 +17,11 @@ public class Course {
         score = 0;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public int getNumberOfPoints() {
         return numberOfPoints;
+    }
+    public String getName() {
+        return name;
     }
 
     public int getPopular() {

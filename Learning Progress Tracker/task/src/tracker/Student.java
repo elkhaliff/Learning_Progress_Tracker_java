@@ -1,5 +1,7 @@
 package tracker;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class Student {
@@ -10,9 +12,12 @@ public class Student {
 
     private final int[] points;
 
+    Set<Integer> notifyCourse;
+
     public Student(int id) {
         this.id = id;
         points = new int[4];
+        notifyCourse = new HashSet<>();
     }
 
     public int[] getPoints() {
@@ -25,6 +30,10 @@ public class Student {
 
     public int getId() {
         return id;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     private boolean testString(String input) {
@@ -68,5 +77,16 @@ public class Student {
     @Override
     public String toString() {
         return String.format("%d points: Java=%d DSA=%d Databases=%d Spring=%d\n", id, points[0], points[1], points[2], points[3]);
+    }
+
+    public int sendMail(int courseId, String courseName, int needPoints) {
+        if (points[courseId] >= needPoints && !notifyCourse.contains(courseId)) {
+            notifyCourse.add(courseId);
+            System.out.printf("To: %s\n", getEmail());
+            System.out.println("Re: Your Learning Progress");
+            System.out.printf("Hello, %s! You have accomplished our %s course!\n", getFullName(), courseName);
+            return getId();
+        } else
+            return 0;
     }
 }

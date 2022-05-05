@@ -1,7 +1,9 @@
 package tracker;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class ClassRoom {
@@ -208,5 +210,20 @@ public class ClassRoom {
         }
         Course course = courses.get(courseID);
         course.getStat(courseID, students);
+    }
+
+    public void sendMails() {
+        Set<Integer> notifiedStudents = new HashSet<>();
+        for (var st : students.entrySet()) {
+            Student student = st.getValue();
+            for (var cr : courses.entrySet()) {
+                Course course = cr.getValue();
+                int courseID = courseOrder.get(course.getName().toLowerCase());
+                int studentId = student.sendMail(courseID, course.getName(), course.getNumberOfPoints());
+                if (studentId != 0)
+                    notifiedStudents.add(studentId);
+            }
+        }
+        System.out.printf("Total %d students have been notified.\n", notifiedStudents.size());
     }
 }
