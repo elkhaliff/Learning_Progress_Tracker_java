@@ -1,8 +1,7 @@
 package tracker;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Course {
     String name;
@@ -62,9 +61,16 @@ public class Course {
     public void getStat(int courseID, Map<Integer, Student> studentsCourse) {
         System.out.println(getName());
         System.out.println("id     points completed");
+        NavigableMap<Integer, Student> orderMap = new TreeMap<>();
         for (int studentId: students) {
-            int points = studentsCourse.get(studentId).getPoints()[courseID];
-            System.out.printf("%d\t%d\t\t %.1f%%\n", studentId, points, (double)points / (double)numberOfPoints * 100);
+            Student student = studentsCourse.get(studentId);
+            int points = student.getPoints()[courseID];
+            orderMap.put(points - studentId, student);
+        }
+        for (var entry: orderMap.descendingMap().entrySet()) {
+            Student student = entry.getValue();
+            int points = student.getPoints()[courseID];
+            System.out.printf("%d\t%d\t\t %.1f%%\n", student.getId(), points, (double)points / (double)numberOfPoints * 100);
         }
     }
 }

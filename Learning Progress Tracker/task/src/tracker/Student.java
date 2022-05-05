@@ -23,6 +23,10 @@ public class Student {
         return email;
     }
 
+    public int getId() {
+        return id;
+    }
+
     private boolean testString(String input) {
         for (String sl: input.split(" ")) {
             if (sl.length() < 2) return false;
