@@ -15,13 +15,23 @@ public class TestOfCourse {
     @BeforeAll
     void initClassRoom() {
         classRoom = new ClassRoom();
+        assertTrue(classRoom.add("John Doe johnd@email.net"));
+        assertTrue(classRoom.add("Jane Spark jspark@yahoo.com"));
     }
 
+    /*
     @ParameterizedTest
     @ValueSource(strings = {"John Doe johnd@email.net", "Jane Spark jspark@yahoo.com"})
     void testClassRoom(String input) {
         assertTrue(classRoom.add(input));
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"java", "dsa", "databases", "spring"})
+    void getStat(String input) {
+        classRoom.getStat(input);
+    }
+    */
 
     @ParameterizedTest
     @ValueSource(strings = { "10000 8 7 7 5", "10000 7 6 9 7", "10000 6 5 5 0", "10001 8 0 8 6", "10001 7 0 0 0",
@@ -31,15 +41,13 @@ public class TestOfCourse {
         classRoom.addPoints(input);
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"java", "dsa", "databases", "spring"})
-    void getStat(String input) {
-        classRoom.getStat(input);
-    }
-
     @AfterAll
     void outMsg() {
         classRoom.getStats();
+        classRoom.getStat("java");
+        classRoom.getStat("dsa");
+        classRoom.getStat("databases");
+        classRoom.getStat("spring");
     }
 
 }

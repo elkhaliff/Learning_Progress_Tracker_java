@@ -43,10 +43,9 @@ public class Engine {
         while (true) {
             var input = Utils.getLine();
             if (BACK.equals(input)) {
-                System.out.printf("Total %d students have been added.\n", count);
                 return;
             } else {
-                if (classRoom.add(input)) count++;
+                classRoom.getStat(input);
             }
         }
     }

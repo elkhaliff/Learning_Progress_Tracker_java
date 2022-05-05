@@ -8,17 +8,15 @@ public class Student {
     private String lastName;
     private String email;
 
-    private int pointJava;
-    private int pointDSA;
-    private int pointDB;
-    private int pointSpring;
+    private final int[] points;
 
     public Student(int id) {
         this.id = id;
-        pointJava = 0;
-        pointDSA = 0;
-        pointDB = 0;
-        pointSpring = 0;
+        points = new int[4];
+    }
+
+    public int[] getPoints() {
+        return points;
     }
 
     public String getEmail() {
@@ -58,15 +56,13 @@ public class Student {
     }
 
     public void setPoints(int[] arrPoints) {
-        int i = 0;
-        pointJava += arrPoints[i++];
-        pointDSA += arrPoints[i++];
-        pointDB += arrPoints[i++];
-        pointSpring += arrPoints[i];
+        for (int i = 0; i < points.length; i++) {
+            points[i] += arrPoints[i];
+        }
     }
 
     @Override
     public String toString() {
-        return String.format("%d points: Java=%d DSA=%d Databases=%d Spring=%d\n", id, pointJava, pointDSA, pointDB, pointSpring);
+        return String.format("%d points: Java=%d DSA=%d Databases=%d Spring=%d\n", id, points[0], points[1], points[2], points[3]);
     }
 }

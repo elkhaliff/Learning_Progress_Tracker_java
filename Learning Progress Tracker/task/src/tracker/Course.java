@@ -1,6 +1,7 @@
 package tracker;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Course {
@@ -55,6 +56,15 @@ public class Course {
             setPopular(idStudent);
             incActivity();
             setScore(score);
+        }
+    }
+
+    public void getStat(int courseID, Map<Integer, Student> studentsCourse) {
+        System.out.println(getName());
+        System.out.println("id     points completed");
+        for (int studentId: students) {
+            int points = studentsCourse.get(studentId).getPoints()[courseID];
+            System.out.printf("%d\t%d\t\t %.1f%%\n", studentId, points, (double)points / (double)numberOfPoints * 100);
         }
     }
 }

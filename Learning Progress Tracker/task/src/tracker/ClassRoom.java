@@ -20,7 +20,7 @@ public class ClassRoom {
         courses = new HashMap<>();
         courseOrder = new HashMap<>();
         initCourses();
-        currId = 1000;
+        currId = 10000;
     }
 
     private void initCourses() {
@@ -32,7 +32,7 @@ public class ClassRoom {
     }
 
     public void addCourse(int order, String name, int numberOfPoints) {
-        courseOrder.put(name, order);
+        courseOrder.put(name.toLowerCase(), order);
         Course course = new Course(name, numberOfPoints);
         courses.put(order, course);
     }
@@ -133,8 +133,80 @@ public class ClassRoom {
     }
 
     public void getStats() {
+        int maxPop = 0;
+        int minPop = Integer.MAX_VALUE;
+        String maxPopular = "n/a";
+        String minPopular = "n/a";
+        int maxAct = 0;
+        int minAct = Integer.MAX_VALUE;
+        String maxActivity = "n/a";
+        String minActivity = "n/a";
+        double maxScore = 0;
+        double minScore = Double.MAX_VALUE;
+        String easiest = "n/a";
+        String hardest = "n/a";
+
+        if (students.size() > 0) {
+            for (var cr : courses.entrySet()) {
+                Course course = cr.getValue();
+
+                int currPop = course.getPopular();
+                if (currPop > maxPop) {
+                    maxPop = currPop;
+                    maxPopular = course.getName();
+                } else if (currPop == maxPop) {
+                    maxPopular = maxPopular + ", " + course.getName();
+                } else if (currPop < minPop) {
+                    minPop = currPop;
+                    minPopular = course.getName();
+                } else if (currPop == minPop) {
+                    minPopular = minPopular + ", " + course.getName();
+                }
+
+                int currAct = course.getActivity();
+                if (currAct > maxAct) {
+                    maxAct = currAct;
+                    maxActivity = course.getName();
+                } else if (currAct == maxAct) {
+                    maxActivity = maxActivity + ", " + course.getName();
+                } else if (currAct < minAct) {
+                    minAct = currAct;
+                    minActivity = course.getName();
+                } else if (currAct == minAct) {
+                    minActivity = minActivity + ", " + course.getName();
+                }
+
+                double currScore = course.getScore();
+                if (currScore > maxScore) {
+                    maxScore = currScore;
+                    easiest = course.getName();
+                } else if (currScore == maxScore) {
+                    easiest = easiest + ", " + course.getName();
+                } else if (currScore < minScore) {
+                    minScore = currScore;
+                    hardest = course.getName();
+                } else if (currScore == minScore) {
+                    hardest = hardest + ", " + course.getName();
+                }
+            }
+        }
+        System.out.printf("Most popular: %s\n", maxPopular);
+        System.out.printf("Least popular: %s\n", minPopular);
+        System.out.printf("Highest activity: %s\n", maxActivity);
+        System.out.printf("Lowest activity: %s\n", minActivity);
+        System.out.printf("Easiest course: %s\n", easiest);
+        System.out.printf("Hardest course: %s\n", hardest);
     }
 
     public void getStat(String courseName) {
+        int courseID;
+        try {
+            courseID = courseOrder.get(courseName.toLowerCase());
+        } catch (Exception e) {
+            System.out.println("Unknown course.");
+            return;
+        }
+        Course course = courses.get(courseID);
+        course.getStat(courseID, students);
     }
 }
